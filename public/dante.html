@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.js"></script>
+</head>
+
+</html>
+
+<table id="photos" class="display" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Character</th>
+            <th>Tv show</th>
+        </tr>
+    </thead>
+
+</table>
+
+
+<script>
+
+    var arrayReturn = [];
+    $.ajax({
+        url: "http://localhost:8000/characterstv",
+        async: false,
+        dataType: 'json',
+        success: function (data) {
+            for (var i = 0, len = data.data.length; i < len; i++) {
+                var desc = data.data[i].make;
+                arrayReturn.push([data.data[i].character, data.data[i].name]);
+            }
+            inittable(arrayReturn);
+        }
+    });
+    function inittable(data) {
+        //console.log(data);
+        $('#photos').DataTable({
+            "aaData": data
+        });
+    }
+
+</script>
+
+</html>
